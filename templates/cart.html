@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="CodeHim">
+    <title>Shopping Cart Modal Example</title>
+
+    <link rel='stylesheet' href="{% static 'cr/https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css' %}">
+    <link rel='stylesheet' href="{% static 'cr/https://use.fontawesome.com/releases/v5.3.1/css/all.css' %}">
+
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="{% static 'cr/css/style.css' %}">
+	<!-- Demo CSS (No need to include it into your project) -->
+	<link rel="stylesheet" href="{% static 'cr/css/demo.css' %}">
+
+  </head>
+  <body>
+ <header class="intro">
+ <h1>Shopping Cart Modal Example</h1>
+ <p>A shopping cart modal popup using Bootstrap.</p>
+
+ <div class="action">
+ <a href="home/" title="Back to download and tutorial page" class="btn back">Back to Tutorial</a>
+ </div>
+ </header>
+
+
+ <main>
+     <!-- Start DEMO HTML (Use the following code into your project)-->
+ <div class="container">
+  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#cartModal">
+    View Cart
+  </button>
+</div>
+
+<div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-bottom-0">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Your Shopping Cart
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-image">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Name</th>
+              <th scope="col">Product id</th>
+              <th scope="col">Price</th>
+              <th scope="col">quantity</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+                        {% for i in ci %}
+
+            <tr>
+              <td class="w-25">
+                  <a href="{{i.prodt.get_url}}"><img src="{{i.prodt.img.url}}" alt="{{i.prodt.name}}" style="height:70; width:70px;"></a>
+              </td>
+                <td>{{i.prodt.name}}</td>
+              <td>{{i.prodt.id}}</td>
+              <td>{{i.prodt.price}}</td>
+<!--              <td class="qty"><input type="text" class="form-control" id="input1" value="{{i.quan}}"></td>-->
+                <td>{{i.quan}}</td>
+              <td><span class="price">{{i.total}}</span><a href="{% url 'addcart' i.prodt.id %}"></a></td>
+              <td>
+
+  <a href="{% url 'remove' i.prodt.id %}"><i class="fa fa-trash-o" style="font-size:20px"></i> </a> &nbsp;&nbsp;&nbsp;
+
+              </td>
+            </tr>
+               {% endfor %}
+
+          </tbody>
+        </table>
+        <div class="d-flex justify-content-end">
+          <h5>Total: <span class="price text-success">{{t}}</span></h5>
+        </div>
+      </div>
+
+      <div class="modal-footer border-top-0 d-flex justify-content-between">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success">Checkout</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- partial -->
+
+     <!-- END EDMO HTML (Happy Coding!)-->
+ </main>
+
+
+  <footer class="credit">Author: cristina - Distributed By: <a title="Awesome web design code & scripts" href="https://www.codehim.com?source=demo-page" target="_blank">CodeHim</a></footer>
+
+<script src="{% static 'cr/https://code.jquery.com/jquery-3.3.1.slim.min.js' %}"></script>
+<script src="{% static 'cr/https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js' %}"></script>
+<script src="{% static 'cr/https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js' %}"></script>
+<script  src="{% static 'cr/./js/script.js' %}"></script>
+
+  </body>
+</html>
+{% endblock %}
